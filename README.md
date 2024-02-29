@@ -3,4 +3,4 @@
 
 ### Deployment link:
 
-Tap for visit ![Slack-chat](https://frontend-project-12-6l2f.onrender.com/)
+Tap for visit [Slack-chat](https://frontend-project-12-6l2f.onrender.com/)
