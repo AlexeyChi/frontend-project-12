@@ -33,11 +33,15 @@ const LoginPage = () => {
       setAuthFailed(true);
 
       try {
+        f.setSubmitting(true);
+        setAuthFailed(false);
         const res = await axios.post(routes.api.loginPath(), values);
         localStorage.setItem('userId', JSON.stringify(res.data));
         auth.logIn();
+        // setTimeout(() => navigate(routes.app.mainPage()), 1000); // <-- mb make a spiner later
         navigate(routes.app.mainPage());
       } catch (err) {
+        f.setSubmitting(true);
         setAuthFailed(false);
         if (err.isAxiosError && err.response.status === 401) {
           setAuthFailed(true);
@@ -68,6 +72,7 @@ const LoginPage = () => {
                   name="username"
                   type="text"
                   placeholder="Ваш ник"
+                  autoComplete="username"
                   onChange={f.handleChange}
                   value={f.values.username}
                   isInvalid={authFailed}
@@ -83,7 +88,8 @@ const LoginPage = () => {
                 <Form.Control
                   name="password"
                   type="password"
-                  placeholder="Пароль"
+                  placeholder="password"
+                  autoComplete="username"
                   onChange={f.handleChange}
                   value={f.values.password}
                   isInvalid={authFailed}

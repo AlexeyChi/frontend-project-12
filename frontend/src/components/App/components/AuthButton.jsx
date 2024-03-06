@@ -8,7 +8,7 @@ const AuthButton = () => {
   const auth = useAuth();
 
   return auth.loggedIn
-    ? <Button as={Link} to={routes.app.loginPage()} onClick={auth.logOut}>Log out</Button>
+    ? <Button className="mr-4" as={Link} to={routes.app.loginPage()} onClick={auth.logOut}>Log out</Button>
     : null;
 };
 
