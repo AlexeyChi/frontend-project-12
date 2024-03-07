@@ -1,20 +1,26 @@
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchChannels } from '../../slices/channelsSlice.js';
 
 import useAuth from '../../hooks/index.jsx';
-import ChannelsContaner from './components/ChannelsContainer';
+import ChannelsContaner from './components/ChannelsBox/ChannelsContainer.jsx';
+import ChatContainer from './components/ChatBox/ChatContainer.jsx';
 
 const MainPage = () => {
   const dispatch = useDispatch();
   const auth = useAuth();
 
-  const headers = auth.getAuthHeaders();
-  dispatch(fetchChannels(headers));
+  useEffect(() => {
+    const headers = auth.getAuthHeaders();
+    dispatch(fetchChannels(headers));
+  }, [dispatch, auth]);
 
   return (
     <div className="container h-100 mb-4 overflow-hidden rounded shadow">
-      <ChannelsContaner />
+      <div className="row h-100 bg-white flex-md-row">
+        <ChannelsContaner />
+        <ChatContainer />
+      </div>
     </div>
   );
 };

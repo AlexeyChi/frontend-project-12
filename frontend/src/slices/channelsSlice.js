@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import axios from 'axios';
-// import routes from '../routes';
+import routes from '../routes';
 
 export const fetchChannels = createAsyncThunk(
   'channels/fetchChannels',
   async (headers) => {
     try {
-      const response = await axios.get('/api/v1/channels', { headers });
+      const response = await axios.get(routes.api.getChannels(), { headers });
       return response.data;
     } catch (err) {
       throw new Error(`Error: ${err}`);

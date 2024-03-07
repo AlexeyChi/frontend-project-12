@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { selectChannels } from '../../../slices/channelsSlice.js';
+import { selectChannels } from '../../../../slices/channelsSlice.js';
 
 import Channel from './Channel';
 
