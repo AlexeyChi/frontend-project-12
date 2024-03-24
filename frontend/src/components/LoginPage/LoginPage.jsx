@@ -9,7 +9,7 @@ import {
   FloatingLabel,
 } from 'react-bootstrap';
 
-import useAuth from '../../hooks/index.jsx';
+import { useAuth } from '../../hooks/index.jsx';
 import PageTemplate from '../PageTemplate/PageTemplate.jsx';
 import routes from '../../routes/index.js';
 import img from '../../assets/Todo_login.jpeg';

@@ -8,9 +8,8 @@ const ChannelList = () => {
 
   return (
     <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
-      {channels.map(({ id, name }) => <Channel key={id} channel={name} />)}
+      {channels.map(({ id, name }) => <Channel key={id} id={id} channel={name} />)}
     </ul>
-
   );
 };
 
