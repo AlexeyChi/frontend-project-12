@@ -1,5 +1,20 @@
-const CommentsField = () => (
-  <div id="messages-box" className="chat-messages overflow-auto px-5" />
-);
+import { useSelector } from 'react-redux';
+
+const CommentsField = () => {
+  const getMessages = useSelector((state) => state.messages);
+  const messages = Object.values(getMessages?.entities);
+
+  return (
+    <div id="messages-box" className="chat-messages overflow-auto px-5">
+      {messages.map(({ id, username, body }) => (
+        <div key={id} className="text-break mb-2">
+          <b>{username}</b>
+          {': '}
+          {body}
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export default CommentsField;
