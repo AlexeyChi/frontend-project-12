@@ -1,23 +1,19 @@
-import classNames from 'classnames';
-import { useSelector } from 'react-redux';
+import { Button } from 'react-bootstrap';
 
-const Channel = ({ id, channel }) => {
-  const activChannel = useSelector((state) => state.channels.activeChannelId);
-
-  const defaultClasses = ['w-100', 'rounded-0', 'text-start', 'btn'];
-  const chennelClasses = classNames(
-    ...defaultClasses,
-    {
-      'btn-secondary': +id === activChannel,
-    },
-  );
+const Channel = ({ channel, isCurrent, handleChoose }) => {
+  const variant = isCurrent ? 'secondary' : '';
 
   return (
     <li className="nav-item w-100">
-      <button type="button" className={chennelClasses}>
+      <Button
+        type="button"
+        variant={variant}
+        className="w-100 rounded-0 text-start text-truncate"
+        onClick={handleChoose}
+      >
         <span className="me-1">#</span>
         {channel}
-      </button>
+      </Button>
     </li>
   );
 };
