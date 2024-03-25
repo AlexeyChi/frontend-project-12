@@ -6,7 +6,7 @@ export const fetchChannels = createAsyncThunk(
   'channels/fetchChannels',
   async (headers) => {
     try {
-      const response = await axios.get(routes.api.getChannels(), { headers });
+      const response = await axios.get(routes.api.channelsPath(), { headers });
       return response.data;
     } catch (err) {
       throw new Error(`Error: ${err}`);
@@ -16,9 +16,7 @@ export const fetchChannels = createAsyncThunk(
 
 const channelsAdapter = createEntityAdapter();
 
-const initialState = channelsAdapter.getInitialState(
-  { activeChannelId: 1, error: null },
-); //  <--the channel was named as General = defaultChannel
+const initialState = channelsAdapter.getInitialState({ error: null });
 
 const channelsSlice = createSlice({
   name: 'channels',

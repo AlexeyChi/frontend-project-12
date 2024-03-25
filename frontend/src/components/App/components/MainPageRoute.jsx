@@ -5,7 +5,6 @@ import routes from '../../../routes';
 
 const MainPageRoute = ({ children }) => {
   const auth = useAuth();
-  console.log(auth.loggedIn);
   const location = useLocation();
 
   return auth.loggedIn
