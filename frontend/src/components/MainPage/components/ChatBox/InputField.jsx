@@ -5,16 +5,16 @@ import { Form, InputGroup, Button } from 'react-bootstrap';
 
 import arrowRigthSvg from '../../../../assets/arrow-right.svg';
 
-const InputField = () => {
+const InputField = ({ channel }) => {
   const [messageText, setMessageText] = useState('');
   const inputEl = useRef();
 
-  const activeChannelId = useSelector((state) => state.channels.activeChannelId);
+  const activeChannelId = useSelector((state) => state.ui.activeChannelId);
   const { token, username } = JSON.parse(localStorage.getItem('userId'));
 
   useEffect(() => {
     inputEl.current.focus();
-  }, []);
+  }, [channel]);
 
   const handleChange = (e) => {
     setMessageText(e.target.value);
@@ -29,6 +29,7 @@ const InputField = () => {
     };
     try {
       setMessageText('');
+      inputEl.current.focus();
       return await axios.post('/api/v1/messages', message, {
         headers: { Authorization: `Bearer ${token}` },
       });
