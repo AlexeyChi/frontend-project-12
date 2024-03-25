@@ -10,26 +10,13 @@ const ChatApiProvider = ({ children }) => {
   const dispatch = useDispatch();
 
   const value = useMemo(() => {
-    socket.on('newMessage', (payload) => {
-      dispatch(messagesActions.addMessage(payload));
-    });
+    const addNewMessage = (payload) => dispatch(messagesActions.addMessage(payload));
 
-    // const socketPromise = (action, cb) => (data, handler) => new Promise((resolve, reject) => {
-    //   socket.emit(action, data, (error, response) => {
-    //     if (error) {
-    //       reject(error);
-    //     } else {
-    //       if (cb) {
-    //         cb(handler, response);
-    //       }
-    //       resolve(response);
-    //     }
-    //   });
-    // });
+    socket.on('newMessage', addNewMessage);
 
-    // return {
-    //   addNewMessage: socketPromise('newMessage'),
-    // };
+    return () => {
+      socket.off('newMessage', addNewMessage);
+    };
   }, [socket, dispatch]);
 
   return (
