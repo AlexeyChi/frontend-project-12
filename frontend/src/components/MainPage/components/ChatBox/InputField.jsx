@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 
-import arrowRigthSvg from '../../../../assets/arrow-right.svg';
+import sendIcon from '../../../../assets/send.svg';
 
 const InputField = ({ channel }) => {
   const [messageText, setMessageText] = useState('');
@@ -56,7 +56,7 @@ const InputField = ({ channel }) => {
             required
           />
           <Button type="submit" variant="" className="btn-group-vertical">
-            <img src={arrowRigthSvg} alt="Отправить сообщение" />
+            <img src={sendIcon} style={{ height: 20 }} alt="Отправить сообщение" />
             <span className="visually-hidden">Отправить</span>
           </Button>
         </InputGroup>
