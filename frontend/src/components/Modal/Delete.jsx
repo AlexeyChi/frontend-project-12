@@ -1,36 +1,65 @@
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 
-const Delete = () => {
+import { actions as channelsActions } from '../../slices/channelsSlice';
+import routes from '../../routes';
+
+const Delete = ({ hideModal }) => {
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const channels = '1'; // <-- change this
+  const id = useSelector((state) => state.ui.modal.selectId);
+
   const handleDeleteChannel = async () => {
-    const deletedChannel = channels.find();
+    setLoading(true);
     try {
-      return await axios('some route', deletedChannel);
+      const { token } = JSON.parse(localStorage.getItem('userId'));
+      await axios.delete(routes.api.channelPath(id), {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      dispatch(channelsActions.removeChannel(id));
+      hideModal();
     } catch (err) {
-      console.log(err); // <-- change this
-    };
+      if (err.isAxiosError) {
+        setLoading(false);
+      }
+      console.log(err);
+      throw err;
+    }
   };
 
   return (
-    <Modal>
-      <Modal.Dialog>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            Удалить канал
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Уверены,
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary">Отменить</Button>
-          <Button variant="primary">Удалить</Button>
-        </Modal.Footer>
-      </Modal.Dialog>
-    </Modal>
+    <>
+      <Modal.Header closeButton>
+        <Modal.Title>
+          Удалить канал
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        Уверены?
+        <div className="d-flex justify-content-end">
+          <Button
+            type="button"
+            className="me-2"
+            variant="secondary"
+            onClick={hideModal}
+          >
+            Отменить
+          </Button>
+          <Button
+            type="submit"
+            variant="danger"
+            disabled={loading}
+            onClick={handleDeleteChannel}
+          >
+            Удалить
+          </Button>
+        </div>
+      </Modal.Body>
+    </>
   );
 };
 
