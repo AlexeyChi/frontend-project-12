@@ -9,7 +9,7 @@ const ChannelsContaner = () => {
   const dispatch = useDispatch();
 
   const handleAddNewChannel = () => {
-    dispatch(usActions.openModal({ type: 'addChannel' }));
+    dispatch(usActions.openModal({ type: 'adding' }));
   };
 
   return (
