@@ -12,7 +12,7 @@ import {
 import { useAuth } from '../../hooks/index.jsx';
 import PageTemplate from '../PageTemplate/PageTemplate.jsx';
 import routes from '../../routes/index.js';
-import img from '../../assets/Todo_login.jpeg';
+import img from '../../assets/Todo_login.jpg';
 
 const LoginPage = () => {
   const [authFailed, setAuthFailed] = useState(false);
@@ -68,6 +68,7 @@ const LoginPage = () => {
                 className="mb-3"
               >
                 <Form.Control
+                  disabled={f.isSubmitting}
                   ref={inputRef}
                   name="username"
                   type="text"
@@ -86,6 +87,7 @@ const LoginPage = () => {
                 className="mb-4"
               >
                 <Form.Control
+                  disabled={f.isSubmitting}
                   name="password"
                   type="password"
                   placeholder="password"
@@ -99,7 +101,14 @@ const LoginPage = () => {
                   the username or password is incorrect
                 </Form.Control.Feedback>
               </FloatingLabel>
-              <Button variant="outline-primary" type="submit" className="w-100 mb-3 btn">Войти</Button>
+              <Button
+                variant="outline-primary"
+                type="submit"
+                className="w-100 mb-3 btn"
+                disabled={f.isSubmitting}
+              >
+                Войти
+              </Button>
             </Form>
             <div className="card-footer p-4">
               <div className="text-center">
