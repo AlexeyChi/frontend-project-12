@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Modal as BootstrapModal } from 'react-bootstrap';
 
 import Add from './Add';
 import Rename from './Rename';
 import Delete from './Delete';
+import { actions as uiActions } from '../../slices/ui';
 
 const mapping = {
   adding: Add,
@@ -10,22 +12,20 @@ const mapping = {
   deleting: Delete,
 };
 
-const renderModal = ({ modalInfo, hideModal }) => {
-  if (!modalInfo.type) {
-    return null;
-  }
-  const Component = mapping(modalInfo.type);
-  return <Component />
-};
-
 const Modal = () => {
-  const [modalInfo, setModalInfo] = useState({type: null});
-  const showModal = (type) => setModalInfo({ type });
-  const hideModal = () => setModalInfo({type: null});
+  const dispatch = useDispatch();
+  const showModal = useSelector((state) => state.ui.modal.isOpened);
+  const hideModal = () => dispatch(uiActions.closeModal());
+
+  const modalType = useSelector((state) => state.ui.modal.type);
+
+  const Component = mapping[modalType];
 
   return (
-    renderModal({ modalInfo, hideModal })
-  )
+    <BootstrapModal show={showModal} onHide={hideModal} centered>
+      {Component && <Component hideModal={hideModal} />}
+    </BootstrapModal>
+  );
 };
 
 export default Modal;
