@@ -13,13 +13,19 @@ const ChatApiProvider = ({ children }) => {
   const value = useMemo(() => {
     const addNewMessage = (payload) => dispatch(messagesActions.addMessage(payload));
     const addNewChannel = (payload) => dispatch(channelsActions.addChannel(payload));
+    const removeChannel = (payload) => dispatch(channelsActions.removeChannel(payload));
+    const renameChannel = (payload) => dispatch(channelsActions.renameChannel(payload));
 
     socket.on('newMessage', addNewMessage);
     socket.on('newChannel', addNewChannel);
+    socket.on('removeChannel', removeChannel);
+    socket.on('renameChannel', renameChannel);
 
     return () => {
       socket.off('newMessage', addNewMessage);
       socket.off('newChannel', addNewChannel);
+      socket.off('removeChannel', removeChannel);
+      socket.off('renameChannel', renameChannel);
     };
   }, [socket, dispatch]);
 
