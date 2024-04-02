@@ -6,6 +6,7 @@ import {
 import MainPageRoute from './components/MainPageRoute';
 import NavBar from './components/NavBar';
 import LoginPage from '../LoginPage/LoginPage';
+import SignupPage from '../SignupPage/SignupPage';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import MainPage from '../MainPage/MainPage';
 import routes from '../../routes';
@@ -24,6 +25,7 @@ const App = () => (
           )}
         />
         <Route path={routes.app.loginPage()} element={<LoginPage />} />
+        <Route path={routes.app.signupPage()} element={<SignupPage />} />
         <Route path={routes.app.errorPage()} element={<ErrorPage />} />
       </Routes>
     </Router>
