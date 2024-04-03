@@ -1,19 +1,13 @@
+import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import AuthProvider from './components/Providers/AuthProvider.jsx';
-import ChatApiProvider from './api/ChatApiProvider.jsx';
-import App from './components/App/App.jsx';
-import store from './slices/index.js';
+import init from './init';
 
-const root = ReactDOM.createRoot(document.getElementById('chat'));
-root.render(
-  <Provider store={store}>
-    <AuthProvider>
-      <ChatApiProvider>
-        <App />
-      </ChatApiProvider>
-    </AuthProvider>
-  </Provider>,
-);
+const app = () => {
+  const vdom = init();
+  const root = ReactDOM.createRoot(document.getElementById('chat'));
+  root.render(<React.StrictMode>{vdom}</React.StrictMode>);
+};
+
+app();
