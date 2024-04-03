@@ -13,7 +13,7 @@ const InputField = ({ channel }) => {
   const { token, username } = JSON.parse(localStorage.getItem('userId'));
 
   useEffect(() => {
-    inputEl.current.focus();
+    setTimeout(() => inputEl.current.focus());
   }, [channel]);
 
   const handleChange = (e) => {

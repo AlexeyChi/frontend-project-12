@@ -9,9 +9,10 @@ const ChatContainer = () => {
   const messages = useSelector((state) => state.messages.entities);
 
   const channel = channels.find(({ id }) => id === activeId);
+
   const activeChannelMesages = Object
     .values(messages)
-    .filter(({ channelId }) => channelId === activeId);
+    .filter(({ channelId }) => channelId === activeId); // <-- mesage counter
 
   return (
     <div className="col p-0 h-100">
