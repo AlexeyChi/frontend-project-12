@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useRef, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import {
   Card,
@@ -19,6 +20,7 @@ const LoginPage = () => {
   const inputRef = useRef();
   const auth = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -58,13 +60,13 @@ const LoginPage = () => {
         <Card className="shadow-sm">
           <Card.Body className="row p-5">
             <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-              <Card.Img src={img} className="max-w-250 rounded-circle" alt="Войти" />
+              <Card.Img src={img} className="max-w-250 rounded-circle" alt={t('login.header')} />
             </div>
             <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={f.handleSubmit}>
-              <h1 className="text-center mb-4">Войти</h1>
+              <h1 className="text-center mb-4">{t('login.header')}</h1>
               <FloatingLabel
                 controlId="username"
-                label="Ваш ник"
+                label={t('login.username')}
                 className="mb-3"
               >
                 <Form.Control
@@ -72,7 +74,7 @@ const LoginPage = () => {
                   ref={inputRef}
                   name="username"
                   type="text"
-                  placeholder="Ваш ник"
+                  placeholder={t('login.username')}
                   autoComplete="username"
                   onChange={f.handleChange}
                   value={f.values.username}
@@ -83,14 +85,14 @@ const LoginPage = () => {
 
               <FloatingLabel
                 controlId="password"
-                label="Пароль"
+                label={t('login.password')}
                 className="mb-4"
               >
                 <Form.Control
                   disabled={f.isSubmitting}
                   name="password"
                   type="password"
-                  placeholder="password"
+                  placeholder={t('login.password')}
                   autoComplete="username"
                   onChange={f.handleChange}
                   value={f.values.password}
@@ -98,7 +100,7 @@ const LoginPage = () => {
                   required
                 />
                 <Form.Control.Feedback type="invalid" tooltip>
-                  the username or password is incorrect
+                  {t('errors.authFailed')}
                 </Form.Control.Feedback>
               </FloatingLabel>
               <Button
@@ -107,14 +109,14 @@ const LoginPage = () => {
                 className="w-100 mb-3 btn"
                 disabled={f.isSubmitting}
               >
-                Войти
+                {t('login.loginBtn')}
               </Button>
             </Form>
             <div className="card-footer p-4">
               <div className="text-center">
-                <span>Нет аккаунта?</span>
+                <span>{t('login.newUser')}</span>
                 {' '}
-                <a href="/signup">Регистрация</a>
+                <Link to={routes.app.signupPage()}>{t('login.signupLink')}</Link>
               </div>
             </div>
           </Card.Body>

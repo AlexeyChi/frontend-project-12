@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   Card,
   Form,
@@ -19,7 +20,8 @@ const SignupPage = () => {
   const [registrationStatus, setRegistrationStatus] = useState(false);
   const navigate = useNavigate();
   const auth = useAuth();
-  const inputEl = useRef();
+  const { t } = useTranslation();
+  const inputEl = useRef(null);
 
   useEffect(() => {
     inputEl.current.focus();
@@ -28,13 +30,15 @@ const SignupPage = () => {
   const validationSchema = yup.object({
     username: yup.string()
       .trim()
-      .min(3)
-      .max(20)
-      .required('Required'),
-    password: yup.string().min(6).required('Required'),
+      .min(3, 'errors.usernameLength')
+      .max(20, 'errors.usernameLength')
+      .required('errors.required'),
+    password: yup.string()
+      .min(6, 'errors.shortPassword')
+      .required('errors.required'),
     confirmPassword: yup.string()
-      .oneOf([yup.ref('password'), null], 'Passwords must match')
-      .required('Required'),
+      .oneOf([yup.ref('password'), null], 'errors.mustMatch')
+      .required('errors.required'),
   });
 
   const f = useFormik({
@@ -57,6 +61,7 @@ const SignupPage = () => {
         if (err.isAxiosError && err.response.status === 409) {
           setRegistrationStatus(true);
           inputEl.current.select();
+          return;
         }
         console.log(err);
         throw err;
@@ -70,21 +75,21 @@ const SignupPage = () => {
         <Card className="shadow-sm">
           <Card.Body className="row p-5">
             <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-              <Card.Img src={img} className="max-w-250 rounded-circle" alt="Войти" />
+              <Card.Img src={img} className="max-w-250 rounded-circle" alt={t('signup.header')} />
             </div>
             <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={f.handleSubmit}>
-              <h1 className="text-center mb-4">Регистрация</h1>
+              <h1 className="text-center mb-4">{t('signup.header')}</h1>
               <FloatingLabel
                 controlId="username"
-                label="Ваш ник"
+                label={t('signup.username')}
                 className="mb-3"
               >
                 <Form.Control
-                  ref={inputEl}
                   disabled={f.isSubmitting}
+                  ref={inputEl}
                   name="username"
                   type="text"
-                  placeholder="Ваш ник"
+                  placeholder={t('signup.username')}
                   autoComplete="username"
                   onChange={f.handleChange}
                   onBlur={f.handleBlur}
@@ -95,19 +100,19 @@ const SignupPage = () => {
                   required
                 />
                 <Form.Control.Feedback type="invalid" tooltip>
-                  {f.errors.username}
+                  {t(f.errors.username)}
                 </Form.Control.Feedback>
               </FloatingLabel>
               <FloatingLabel
                 controlId="password"
-                label="Пароль"
+                label={t('signup.password')}
                 className="mb-3"
               >
                 <Form.Control
                   disabled={f.isSubmitting}
                   name="password"
                   type="password"
-                  placeholder="password"
+                  placeholder={t('signup.password')}
                   autoComplete="password"
                   onChange={f.handleChange}
                   onBlur={f.handleBlur}
@@ -118,19 +123,19 @@ const SignupPage = () => {
                   required
                 />
                 <Form.Control.Feedback type="invalid" tooltip>
-                  {f.errors.password}
+                  {t(f.errors.password)}
                 </Form.Control.Feedback>
               </FloatingLabel>
               <FloatingLabel
                 controlId="confirmPassword"
-                label="Потвердите пароль"
+                label={t('signup.confirmPassword')}
                 className="mb-4"
               >
                 <Form.Control
                   disabled={f.isSubmitting}
                   name="confirmPassword"
                   type="password"
-                  placeholder="confirmPassword"
+                  placeholder={t('signup.confirmPassword')}
                   autoComplete="confirmPassword"
                   onChange={f.handleChange}
                   onBlur={f.handleBlur}
@@ -142,8 +147,8 @@ const SignupPage = () => {
                 />
                 <Form.Control.Feedback type="invalid" tooltip>
                   {registrationStatus
-                    ? 'This user must already exist'
-                    : f.errors.confirmPassword}
+                    ? t('errors.userAlreadyExist')
+                    : t(f.errors.confirmPassword)}
                 </Form.Control.Feedback>
               </FloatingLabel>
               <Button
@@ -152,7 +157,7 @@ const SignupPage = () => {
                 type="submit"
                 className="w-100 mb-4 btn"
               >
-                Зарегистрироваться
+                {t('signup.signupBtn')}
               </Button>
             </Form>
           </Card.Body>

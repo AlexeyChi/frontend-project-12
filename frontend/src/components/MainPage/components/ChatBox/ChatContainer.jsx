@@ -1,9 +1,11 @@
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { selectChannels } from '../../../../slices/channelsSlice';
 import CommentsField from './CommentsField';
 import InputField from './InputField';
 
 const ChatContainer = () => {
+  const { t } = useTranslation();
   const channels = useSelector(selectChannels);
   const activeId = useSelector((state) => state.ui.activeChannelId);
   const messages = useSelector((state) => state.messages.entities);
@@ -12,7 +14,7 @@ const ChatContainer = () => {
 
   const activeChannelMesages = Object
     .values(messages)
-    .filter(({ channelId }) => channelId === activeId); // <-- mesage counter
+    .filter(({ channelId }) => channelId === activeId); // <-- message counter
 
   return (
     <div className="col p-0 h-100">
@@ -24,7 +26,7 @@ const ChatContainer = () => {
             </b>
           </p>
           <span className="text-muted">
-            {`${activeChannelMesages.length} сообщение`}
+            {t('chat.messages.message', { count: activeChannelMesages.length })}
           </span>
         </div>
         <CommentsField />
