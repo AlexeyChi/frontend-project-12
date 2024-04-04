@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'react-bootstrap';
 
 import { actions as channelsActions } from '../../slices/channelsSlice';
@@ -9,6 +10,7 @@ import routes from '../../routes';
 const Delete = ({ hideModal }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const id = useSelector((state) => state.ui.modal.selectId);
 
   const handleDeleteChannel = async () => {
@@ -35,11 +37,11 @@ const Delete = ({ hideModal }) => {
     <>
       <Modal.Header closeButton>
         <Modal.Title>
-          Удалить канал
+          <h4>{t('modals.removeChannelHeader')}</h4>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        Уверены?
+        <p>{t('modals.areYouShure')}</p>
         <div className="d-flex justify-content-end">
           <Button
             type="button"
@@ -47,7 +49,7 @@ const Delete = ({ hideModal }) => {
             variant="secondary"
             onClick={hideModal}
           >
-            Отменить
+            {t('modals.cancelBtn')}
           </Button>
           <Button
             type="submit"
@@ -55,7 +57,7 @@ const Delete = ({ hideModal }) => {
             disabled={loading}
             onClick={handleDeleteChannel}
           >
-            Удалить
+            {t('modals.removeBtn')}
           </Button>
         </div>
       </Modal.Body>

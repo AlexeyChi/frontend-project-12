@@ -2,6 +2,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import { useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { Modal, Form, Button } from 'react-bootstrap';
 
@@ -12,20 +13,21 @@ import routes from '../../routes';
 const nameValidationSchema = (channels) => yup.object().shape({
   name: yup.string()
     .trim()
-    .min(3, 'Must be 3 characters or more')
-    .max(20, 'Must be 20 characters or less')
-    .required('Required')
-    .notOneOf(channels, 'Not unique name'),
+    .min(3, 'errors.inValidLength')
+    .max(20, 'errors.inValidLength')
+    .required('errors.required')
+    .notOneOf(channels, 'errors.notUniqueName'),
 });
 
 const Add = ({ hideModal }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const channelsNames = useSelector(selectChannels).map(({ name }) => name);
   const inputEl = useRef();
 
   useEffect(() => {
     inputEl.current.focus();
-  }, []);
+  }, [inputEl]);
 
   const f = useFormik({
     initialValues: {
@@ -60,7 +62,7 @@ const Add = ({ hideModal }) => {
     <>
       <Modal.Header closeButton>
         <Modal.Title>
-          Добавить канал
+          <h4>{t('modals.addChannelHeader')}</h4>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -73,14 +75,14 @@ const Add = ({ hideModal }) => {
               type="text"
               name="name"
               id="name"
-              placeholder="Введите название канала..."
+              placeholder={t('modals.enterChannelName')}
               onChange={f.handleChange}
               onBlur={f.handleBlur}
               isInvalid={(f.errors.name && f.touched.name) || !!f.status}
               value={f.values.name}
             />
             <Form.Control.Feedback type="invalid">
-              {f.errors.name || f.status}
+              {t(f.errors.name) || f.status}
             </Form.Control.Feedback>
             <div className="d-flex justify-content-end">
               <Button
@@ -89,14 +91,14 @@ const Add = ({ hideModal }) => {
                 variant="secondary"
                 onClick={hideModal}
               >
-                Отменить
+                {t('modals.cancelBtn')}
               </Button>
               <Button
                 type="submit"
                 variant="primary"
                 disabled={f.isSubmitting}
               >
-                Добавить
+                {t('modals.addBtn')}
               </Button>
             </div>
           </Form.Group>

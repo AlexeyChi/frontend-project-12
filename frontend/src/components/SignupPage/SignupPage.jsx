@@ -30,8 +30,8 @@ const SignupPage = () => {
   const validationSchema = yup.object({
     username: yup.string()
       .trim()
-      .min(3, 'errors.usernameLength')
-      .max(20, 'errors.usernameLength')
+      .min(3, 'errors.inValidLength')
+      .max(20, 'errors.inValidLength')
       .required('errors.required'),
     password: yup.string()
       .min(6, 'errors.shortPassword')

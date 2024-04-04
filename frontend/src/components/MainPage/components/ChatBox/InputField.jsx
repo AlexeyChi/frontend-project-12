@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 
 import sendIcon from '../../../../assets/send.svg';
@@ -8,6 +9,7 @@ import sendIcon from '../../../../assets/send.svg';
 const InputField = ({ channel }) => {
   const [messageText, setMessageText] = useState('');
   const inputEl = useRef();
+  const { t } = useTranslation();
 
   const activeChannelId = useSelector((state) => state.ui.activeChannelId);
   const { token, username } = JSON.parse(localStorage.getItem('userId'));
@@ -48,16 +50,16 @@ const InputField = ({ channel }) => {
           <Form.Control
             ref={inputEl}
             name="body"
-            placeholder="Введите сообщение..."
+            placeholder={t('chat.addMessage')}
             className="border-0 p-0 ps-2"
-            aria-label="Новое сообщение"
+            aria-label={t('chat.newMessage')}
             onChange={(e) => handleChange(e)}
             value={messageText}
             required
           />
           <Button type="submit" variant="" className="btn-group-vertical">
-            <img src={sendIcon} style={{ height: 20 }} alt="Отправить сообщение" />
-            <span className="visually-hidden">Отправить</span>
+            <img src={sendIcon} style={{ height: 20 }} alt={t('chat.sendBtn')} />
+            <span className="visually-hidden">{t('chat.newMessage')}</span>
           </Button>
         </InputGroup>
       </Form>
