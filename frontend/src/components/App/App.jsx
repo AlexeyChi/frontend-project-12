@@ -3,6 +3,8 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+
 import MainPageRoute from './components/MainPageRoute';
 import NavBar from './components/NavBar';
 import LoginPage from '../LoginPage/LoginPage';
@@ -28,6 +30,7 @@ const App = () => (
         <Route path={routes.app.signupPage()} element={<SignupPage />} />
         <Route path={routes.app.errorPage()} element={<ErrorPage />} />
       </Routes>
+      <ToastContainer autoClose={3000} closeOnClick />
     </Router>
   </div>
 );

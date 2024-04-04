@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 import { actions as channelsActions } from '../../slices/channelsSlice';
 import routes from '../../routes';
@@ -23,12 +24,14 @@ const Delete = ({ hideModal }) => {
         },
       });
       dispatch(channelsActions.removeChannel(id));
+      toast.success(t('modals.removeChannel'));
       hideModal();
     } catch (err) {
       if (err.isAxiosError) {
         setLoading(false);
+        toast.error(t('errors.network'));
       }
-      console.log(err);
+      toast.error(t('errors.unknown'));
       throw err;
     }
   };

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { Modal, Form, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 import { selectChannels, actions as channelActions } from '../../slices/channelsSlice';
 import routes from '../../routes';
@@ -45,12 +46,16 @@ const Rename = ({ hideModal }) => {
           },
         });
         dispatch(channelActions.renameChannel(data));
+        toast.success(t('modals.renameChannel'));
         hideModal();
       } catch (err) {
         f.setSubmitting(true);
         if (err.isAxiosError) {
+          toast.error(t('errors.network'));
           inputEl.current.select();
         }
+        toast.error(t('errors.unknown'));
+        throw err;
       } finally {
         f.isSubmitting(false);
       }

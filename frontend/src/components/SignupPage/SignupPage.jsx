@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import {
   Card,
   Form,
@@ -57,12 +58,14 @@ const SignupPage = () => {
         setRegistrationStatus(true);
         auth.logIn();
         navigate(routes.app.mainPage());
+        toast.success(`${t('signup.hello')}, ${username}!`);
       } catch (err) {
         if (err.isAxiosError && err.response.status === 409) {
           setRegistrationStatus(true);
           inputEl.current.select();
           return;
         }
+        toast.error(t('errors.unknown'));
         console.log(err);
         throw err;
       }

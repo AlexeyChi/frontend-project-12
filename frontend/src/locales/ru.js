@@ -17,6 +17,7 @@ export default {
       password: 'Пароль',
       confirmPassword: 'Подтвердите пароль',
       signupBtn: 'Зарегистрироваться',
+      hello: 'Привет',
     },
     channels: {
       header: 'Каналы',
@@ -36,10 +37,13 @@ export default {
     },
     modals: {
       addChannelHeader: 'Добавить канал',
+      addChannel: 'Канал создан',
+      removeChannel: 'Канал удален',
       enterChannelName: 'Введите название канала...',
       removeChannelHeader: 'Удалить канал',
       areYouShure: 'Уверены?',
       renameChannelHeader: 'Переименовать канал',
+      renameChannel: 'Канал переименован',
       cancelBtn: 'Отменить',
       sendBtn: 'Отправить',
       addBtn: 'Добавить',
@@ -53,6 +57,8 @@ export default {
       mustMatch: 'Пароль должен совпадать',
       userAlreadyExist: 'Такой пользователь уже существует',
       authFailed: 'Неверные имя пользователя или пароль',
+      network: 'Ошибка соединения',
+      unknown: 'Неизвестная ошибка',
     },
   },
 };

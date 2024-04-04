@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { Modal, Form, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 import { selectChannels, actions as channelsActions } from '../../slices/channelsSlice';
 import { actions as uiActions } from '../../slices/ui';
@@ -45,12 +46,15 @@ const Add = ({ hideModal }) => {
         });
         dispatch(channelsActions.addChannel(data));
         dispatch(uiActions.setCurrentChannel(data.id));
+        toast.success(t('modals.addChannel'));
         hideModal();
       } catch (err) {
         f.setSubmitting(true);
         if (err.isAxiosError) {
           inputEl.current.select();
+          toast.error(t('errors.network'));
         }
+        toast.error(t('errors.unknown'));
         throw err;
       } finally {
         f.setSubmitting(false);

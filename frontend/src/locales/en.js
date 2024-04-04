@@ -17,6 +17,7 @@ export default {
       password: 'Password',
       confirmPassword: 'Confirm password',
       signupBtn: 'Sign up',
+      hello: 'Hello',
     },
     channels: {
       header: 'Channels',
@@ -35,10 +36,13 @@ export default {
     },
     modals: {
       addChannelHeader: 'Add channel',
+      addChannel: 'Сhannel is created',
+      removeChannel: 'Сhannel is deleted',
       enterChannelName: 'Enter channel name...',
       removeChannelHeader: 'Remove channel',
       areYouShure: 'Shure?',
       renameChannelHeader: 'New channel name',
+      renameChannel: 'Сhannel is renamed',
       cancelBtn: 'Cancel',
       sendBtn: 'Send',
       addBtn: 'Add',
@@ -52,6 +56,8 @@ export default {
       mustMatch: 'Password must match',
       userAlreadyExist: 'User already taken',
       authFailed: 'Username or password is incorrect',
+      network: 'Network error', 
+      unknown: 'Unknown error',
     },
   },
 };
