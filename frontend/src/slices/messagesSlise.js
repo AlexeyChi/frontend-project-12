@@ -1,5 +1,20 @@
-import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
 import { actions as channelsActions } from './channelsSlice';
+import routes from '../routes';
+
+export const fetchMessages = createAsyncThunk(
+  'messages/fetchMessages',
+  async (headers) => {
+    try {
+      const response = await axios.get(routes.api.messagesPath(), { headers });
+      return response.data;
+    } catch (err) {
+      throw new Error(`Error: ${err}`);
+    }
+  },
+);
 
 const messagesAdapter = createEntityAdapter();
 
@@ -12,13 +27,18 @@ const messagesSlice = createSlice({
     addMessage: messagesAdapter.addOne,
   },
   extraReducers: (builder) => {
-    builder.addCase(channelsActions.removeChannel, (state, action) => {
-      const id = action.payload;
-      const newMessages = Object
-        .values(state.entities)
-        .filter((messages) => messages.channelId !== id);
-      messagesAdapter.setAll(state, newMessages);
-    });
+    builder
+      .addCase(fetchMessages.rejected, (state, action) => ({ ...state, error: action.error }))
+      .addCase(fetchMessages.fulfilled, (state, action) => {
+        messagesAdapter.setAll(state, action.payload);
+      })
+      .addCase(channelsActions.removeChannel, (state, action) => {
+        const { id } = action.payload;
+        const newMessages = Object
+          .values(state.entities)
+          .filter((message) => message.channelId !== id);
+        messagesAdapter.setAll(state, newMessages);
+      });
   },
 });
 

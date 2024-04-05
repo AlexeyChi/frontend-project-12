@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { useAuth } from '../../hooks/index.jsx';
 import { fetchChannels } from '../../slices/channelsSlice.js';
-import { fetchedMessages } from '../../slices/messagesSlise.js';
+import { fetchMessages } from '../../slices/messagesSlise.js';
 import Modal from '../Modal/Modal.jsx';
 import ChannelsContaner from './components/ChannelsBox/ChannelsContainer.jsx';
 import ChatContainer from './components/ChatBox/ChatContainer.jsx';
@@ -15,7 +15,7 @@ const MainPage = () => {
   useEffect(() => {
     const headers = auth.getAuthHeaders();
     dispatch(fetchChannels(headers));
-    dispatch(fetchedMessages(headers));
+    dispatch(fetchMessages(headers));
   }, [dispatch, auth]);
 
   return (
