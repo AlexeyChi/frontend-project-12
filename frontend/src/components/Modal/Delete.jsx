@@ -5,34 +5,38 @@ import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
+import { useAuth } from '../../hooks';
 import { actions as channelsActions } from '../../slices/channelsSlice';
+import { actions as uiActions } from '../../slices/ui';
 import routes from '../../routes';
 
 const Delete = ({ hideModal }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const { loggedIn } = useAuth();
   const id = useSelector((state) => state.ui.modal.selectId);
 
   const handleDeleteChannel = async () => {
     setLoading(true);
     try {
-      const { token } = JSON.parse(localStorage.getItem('userId'));
+      const { token } = loggedIn;
       await axios.delete(routes.api.channelPath(id), {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       dispatch(channelsActions.removeChannel(id));
+      dispatch(uiActions.setCurrentChannel('1'));
       toast.success(t('modals.removeChannel'));
       hideModal();
     } catch (err) {
       if (err.isAxiosError) {
         setLoading(false);
         toast.error(t('errors.network'));
+        return;
       }
       toast.error(t('errors.unknown'));
-      throw err;
     }
   };
 

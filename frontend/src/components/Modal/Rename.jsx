@@ -6,7 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import leoProfanity from 'leo-profanity';
 
+import { useAuth } from '../../hooks';
 import { selectChannels, actions as channelActions } from '../../slices/channelsSlice';
 import routes from '../../routes';
 
@@ -22,6 +24,7 @@ const nameValidationSchema = (channels) => yup.object().shape({
 const Rename = ({ hideModal }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const { loggedIn } = useAuth();
   const channels = useSelector(selectChannels);
   const channelsNames = channels.map(({ name }) => name);
   const id = useSelector((state) => state.ui.modal.selectId);
@@ -38,9 +41,12 @@ const Rename = ({ hideModal }) => {
     validationSchema: nameValidationSchema(channelsNames),
     onSubmit: async (values) => {
       try {
-        nameValidationSchema(channelsNames).validateSync(values);
-        const { token } = JSON.parse(localStorage.getItem('userId'));
-        const { data } = await axios.patch(routes.api.channelPath(id), values, {
+        const filteredName = {
+          name: leoProfanity.clean(values.name),
+        };
+        nameValidationSchema(channelsNames).validateSync(filteredName);
+        const { token } = loggedIn;
+        const { data } = await axios.patch(routes.api.channelPath(id), filteredName, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -49,15 +55,12 @@ const Rename = ({ hideModal }) => {
         toast.success(t('modals.renameChannel'));
         hideModal();
       } catch (err) {
-        f.setSubmitting(true);
+        f.setSubmitting(false);
         if (err.isAxiosError) {
           toast.error(t('errors.network'));
-          inputEl.current.select();
+          return;
         }
         toast.error(t('errors.unknown'));
-        throw err;
-      } finally {
-        f.isSubmitting(false);
       }
     },
   });

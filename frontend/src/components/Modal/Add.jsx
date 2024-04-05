@@ -6,7 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import leoProfanity from 'leo-profanity';
 
+import { useAuth } from '../../hooks';
 import { selectChannels, actions as channelsActions } from '../../slices/channelsSlice';
 import { actions as uiActions } from '../../slices/ui';
 import routes from '../../routes';
@@ -21,6 +23,7 @@ const nameValidationSchema = (channels) => yup.object().shape({
 });
 
 const Add = ({ hideModal }) => {
+  const { loggedIn } = useAuth();
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const channelsNames = useSelector(selectChannels).map(({ name }) => name);
@@ -35,11 +38,14 @@ const Add = ({ hideModal }) => {
       name: '',
     },
     validationSchema: nameValidationSchema(channelsNames),
-    onSubmit: async (values) => {
+    onSubmit: async ({ name }) => {
       try {
-        nameValidationSchema(channelsNames).validateSync(values);
-        const { token } = JSON.parse(localStorage.getItem('userId'));
-        const { data } = await axios.post(routes.api.channelsPath(), values, {
+        const filteredName = {
+          name: leoProfanity.clean(name),
+        };
+        nameValidationSchema(channelsNames).validateSync(filteredName);
+        const { token } = loggedIn;
+        const { data } = await axios.post(routes.api.channelsPath(), filteredName, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -49,15 +55,12 @@ const Add = ({ hideModal }) => {
         toast.success(t('modals.addChannel'));
         hideModal();
       } catch (err) {
-        f.setSubmitting(true);
-        if (err.isAxiosError) {
-          inputEl.current.select();
-          toast.error(t('errors.network'));
-        }
-        toast.error(t('errors.unknown'));
-        throw err;
-      } finally {
         f.setSubmitting(false);
+        if (!err.isAxiosError) {
+          toast.error(t('errors.unknown'));
+          return;
+        }
+        toast.error(t('errors.network'));
       }
     },
   });
@@ -86,7 +89,7 @@ const Add = ({ hideModal }) => {
               value={f.values.name}
             />
             <Form.Control.Feedback type="invalid">
-              {t(f.errors.name) || f.status}
+              {t(f.errors.name)}
             </Form.Control.Feedback>
             <div className="d-flex justify-content-end">
               <Button

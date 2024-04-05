@@ -3,6 +3,7 @@ import { useRef, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
 import {
   Card,
   Button,
@@ -32,24 +33,26 @@ const LoginPage = () => {
       password: '',
     },
     onSubmit: async (values) => {
-      setAuthFailed(true);
-
+      setAuthFailed(false);
       try {
-        f.setSubmitting(true);
-        setAuthFailed(false);
-        const res = await axios.post(routes.api.loginPath(), values);
-        localStorage.setItem('userId', JSON.stringify(res.data));
-        auth.logIn();
-        // setTimeout(() => navigate(routes.app.mainPage()), 1000); // <-- mb make a spiner later
+        const { data } = await axios.post(routes.api.loginPath(), values);
+        auth.logIn(data);
         navigate(routes.app.mainPage());
       } catch (err) {
-        f.setSubmitting(true);
-        setAuthFailed(false);
+        console.log(err);
+        f.setSubmitting(false);
+        if (!err.isAxiosError) {
+          toast.error(t('errors.unknown'));
+          return;
+        }
+        if (err.code === 'ERR_NETWORK') {
+          toast.error(t('errors.network'));
+          return;
+        }
         if (err.isAxiosError && err.response.status === 401) {
           setAuthFailed(true);
           inputRef.current.select();
         }
-        throw err;
       }
     },
   });

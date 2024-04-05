@@ -65,9 +65,11 @@ const SignupPage = () => {
           inputEl.current.select();
           return;
         }
-        toast.error(t('errors.unknown'));
-        console.log(err);
-        throw err;
+        if (!err.isAxiosError) {
+          toast.error(t('errors.unknown'));
+          return;
+        }
+        toast.error(t('errors.network'));
       }
     },
   });
