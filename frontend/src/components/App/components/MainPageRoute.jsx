@@ -4,10 +4,11 @@ import { useAuth } from '../../../hooks';
 import routes from '../../../routes';
 
 const MainPageRoute = ({ children }) => {
-  const auth = useAuth();
+  const { loggedIn } = useAuth();
+  console.log(loggedIn);
   const location = useLocation();
 
-  return auth.loggedIn
+  return loggedIn
     ? children : <Navigate to={routes.app.loginPage()} state={{ from: location }} />;
 };
 
