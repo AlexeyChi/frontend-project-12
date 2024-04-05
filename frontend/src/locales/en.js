@@ -59,5 +59,9 @@ export default {
       network: 'Network error', 
       unknown: 'Unknown error',
     },
+    errorPage: {
+      pageNotFound: 'Page not found',
+      mainPage: 'main page?',
+    },
   },
 };

@@ -60,5 +60,9 @@ export default {
       network: 'Ошибка соединения',
       unknown: 'Неизвестная ошибка',
     },
+    errorPage: {
+      pageNotFound: 'Страница не найдена',
+      mainPage: 'Перейти на главную?',
+    },
   },
 };
