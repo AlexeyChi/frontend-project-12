@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { actions as channelsActions } from './channelsSlice';
+
 const uiSlice = createSlice({
   name: 'ui',
   initialState: {
@@ -32,6 +34,11 @@ const uiSlice = createSlice({
         selectId: null,
       },
     }),
+  },
+  extraReducers: (build) => {
+    build.addCase(channelsActions.removeChannel, (state) => ({
+      ...state, activeChannelId: '1',
+    }));
   },
 });
 
