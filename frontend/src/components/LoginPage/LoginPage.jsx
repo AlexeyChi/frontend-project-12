@@ -3,6 +3,7 @@ import { useRef, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
+import { useRollbar } from '@rollbar/react';
 import { toast } from 'react-toastify';
 import {
   Card,
@@ -20,6 +21,7 @@ const LoginPage = () => {
   const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
   const auth = useAuth();
+  const rollbar = useRollbar();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -39,7 +41,7 @@ const LoginPage = () => {
         auth.logIn(data);
         navigate(routes.app.mainPage());
       } catch (err) {
-        console.log(err);
+        rollbar.error('something wrong', err);
         f.setSubmitting(false);
         if (!err.isAxiosError) {
           toast.error(t('errors.unknown'));

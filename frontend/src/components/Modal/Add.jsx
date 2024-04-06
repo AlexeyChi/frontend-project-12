@@ -4,6 +4,7 @@ import { useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
+import { useRollbar } from '@rollbar/react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';
@@ -24,6 +25,7 @@ const nameValidationSchema = (channels) => yup.object().shape({
 
 const Add = ({ hideModal }) => {
   const { loggedIn } = useAuth();
+  const rollbar = useRollbar();
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const channelsNames = useSelector(selectChannels).map(({ name }) => name);
@@ -55,6 +57,7 @@ const Add = ({ hideModal }) => {
         toast.success(t('modals.addChannel'));
         hideModal();
       } catch (err) {
+        rollbar.error(err);
         f.setSubmitting(false);
         if (!err.isAxiosError) {
           toast.error(t('errors.unknown'));
