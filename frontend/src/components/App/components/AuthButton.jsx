@@ -6,11 +6,11 @@ import { useAuth } from '../../../hooks';
 import routes from '../../../routes';
 
 const AuthButton = () => {
-  const auth = useAuth();
+  const { loggedIn, logOut } = useAuth();
   const { t } = useTranslation();
 
-  return auth.loggedIn
-    ? <Button className="mr-4" as={Link} to={routes.app.loginPage()} onClick={auth.logOut}>{t('navBar.logoutBtn')}</Button>
+  return loggedIn?.token
+    ? <Button className="mr-4" as={Link} to={routes.app.loginPage()} onClick={logOut}>{t('navBar.logoutBtn')}</Button>
     : null;
 };
 

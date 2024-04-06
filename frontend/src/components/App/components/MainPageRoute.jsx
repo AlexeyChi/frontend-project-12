@@ -5,10 +5,9 @@ import routes from '../../../routes';
 
 const MainPageRoute = ({ children }) => {
   const { loggedIn } = useAuth();
-  console.log(loggedIn);
   const location = useLocation();
 
-  return loggedIn
+  return loggedIn?.token
     ? children : <Navigate to={routes.app.loginPage()} state={{ from: location }} />;
 };
 
