@@ -54,9 +54,8 @@ const SignupPage = () => {
       const newUser = { username, password };
       try {
         const response = await axios.post(routes.api.singupPath(), newUser);
-        localStorage.setItem('userId', JSON.stringify(response.data));
         setRegistrationStatus(true);
-        auth.logIn();
+        auth.logIn(response.data);
         navigate(routes.app.mainPage());
         toast.success(`${t('signup.hello')}, ${username}!`);
       } catch (err) {

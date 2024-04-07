@@ -3,7 +3,7 @@ import { useState, useMemo, useCallback } from 'react';
 import { AuthContext } from '../../contexts/index.jsx';
 
 const AuthProvider = ({ children }) => {
-  const authInfo = JSON.parse(localStorage.getItem('userId'));
+  const authInfo = JSON.parse(localStorage.getItem('userId')) || { username: null, token: null };
   const [loggedIn, setLoggedIn] = useState(authInfo);
 
   const logIn = (data) => {

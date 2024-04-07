@@ -37,8 +37,8 @@ const LoginPage = () => {
     onSubmit: async (values) => {
       setAuthFailed(false);
       try {
-        const { data } = await axios.post(routes.api.loginPath(), values);
-        auth.logIn(data);
+        const response = await axios.post(routes.api.loginPath(), values);
+        auth.logIn(response.data);
         navigate(routes.app.mainPage());
       } catch (err) {
         rollbar.error('something wrong', err);

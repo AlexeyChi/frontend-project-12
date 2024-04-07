@@ -28,7 +28,7 @@ const Channel = ({
             </Button>
 
             <Dropdown.Toggle split className="flex-grow-0" variant={variant}>
-              <span className="visually-hidden">Меню</span>
+              <span className="visually-hidden">{t('channels.menu')}</span>
             </Dropdown.Toggle>
 
             <Dropdown.Menu>

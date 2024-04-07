@@ -1,6 +1,7 @@
 export default {
   translation: {
     navBar: {
+      HexletChat: 'Hexlet Chat',
       logoutBtn: 'Выйти',
     },
     login: {
@@ -24,6 +25,7 @@ export default {
       addBtn: 'Добавить',
       delete: 'Удалить',
       rename: 'Переименовать',
+      menu: 'Управление каналом',
     },
     chat: {
       messages: {

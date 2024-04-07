@@ -25,7 +25,7 @@ const ChannelsContaner = () => {
           onClick={handleAddNewChannel}
         >
           <img src={addChannel} alt={t('channels.addBtn')} />
-          <span className="visually-hidden">Добавить канал</span>
+          <span className="visually-hidden">{t('modals.addChannelHeader')}</span>
         </Button>
       </div>
       <ChannelList />
