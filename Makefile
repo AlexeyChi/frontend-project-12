@@ -4,6 +4,9 @@ lint-frontend:
 install:
 		npm ci
 
+build:
+		make -C frontend build
+
 start-frontend:
 		make -C frontend start
 
@@ -15,7 +18,3 @@ start:
 
 develop:
 		make start-backend & make start-frontend
-
-build:
-		rm frontend/build -rf
-		npm run build
