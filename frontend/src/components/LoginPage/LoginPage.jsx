@@ -65,7 +65,7 @@ const LoginPage = () => {
         <Card className="shadow-sm">
           <Card.Body className="row p-5">
             <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-              <Card.Img src={img} className="max-w-250 rounded-circle" alt={t('login.header')} />
+              <img src={img} className="max-w-250 rounded-circle" alt={t('login.header')} />
             </div>
             <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={f.handleSubmit}>
               <h1 className="text-center mb-4">{t('login.header')}</h1>
@@ -117,14 +117,14 @@ const LoginPage = () => {
                 {t('login.loginBtn')}
               </Button>
             </Form>
-            <div className="card-footer p-4">
-              <div className="text-center">
-                <span>{t('login.newUser')}</span>
-                {' '}
-                <Link to={routes.app.signupPage()}>{t('login.signupLink')}</Link>
-              </div>
-            </div>
           </Card.Body>
+          <div className="card-footer p-4">
+            <div className="text-center">
+              <span>{t('login.newUser')}</span>
+              {' '}
+              <Link to={routes.app.signupPage()}>{t('login.signupLink')}</Link>
+            </div>
+          </div>
         </Card>
       </div>
     </PageTemplate>

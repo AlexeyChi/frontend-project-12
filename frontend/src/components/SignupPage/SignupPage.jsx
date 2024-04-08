@@ -79,7 +79,7 @@ const SignupPage = () => {
         <Card className="shadow-sm">
           <Card.Body className="row p-5">
             <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-              <Card.Img src={img} className="max-w-250 rounded-circle" alt={t('signup.header')} />
+              <img src={img} className="max-w-250 rounded-circle" alt={t('signup.header')} />
             </div>
             <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={f.handleSubmit}>
               <h1 className="text-center mb-4">{t('signup.header')}</h1>

@@ -9,7 +9,7 @@ const NavBar = () => {
   const { t } = useTranslation();
 
   return (
-    <Navbar className="mb-4 shadow-sm navbar-expand-lg navbar-light bg-white">
+    <Navbar bg="white" expand="lg" className="shadow-sm">
       <Container>
         <Navbar.Brand as={Link} to={routes.app.mainPage()}>{t('navBar.HexletChat')}</Navbar.Brand>
         <AuthButton />

@@ -11,18 +11,20 @@ const ErrorPage = () => {
 
   return (
     <PageTemplate>
-      <div className="d-flex justify-content-center align-content-center">
-        <Card className="shadow-sm align-items-center max-w-500">
+      <div className="col-12 col-md-8 col-xxl-6">
+        <Card className="shadow-sm">
           <Card.Body className="row p-5">
-            <Card.Img variant="top" src={img} alt="Error 404: Page not found" />
-            <div className="card-footer p-4">
-              <div className="text-center">
-                {t('errorPage.pageNotFound')}
-                {' '}
-                <Link to={routes.app.mainPage()}>{t('errorPage.mainPage')}</Link>
-              </div>
+            <div className="d-flex align-items-center justify-content-center">
+              <Card.Img className="max-w-250" src={img} alt={t('errorPage.pageNotFound')} />
             </div>
           </Card.Body>
+          <div className="card-footer p-4">
+            <div className="text-center">
+              {t('errorPage.pageNotFound')}
+              {' '}
+              <Link to={routes.app.mainPage()}>{t('errorPage.mainPage')}</Link>
+            </div>
+          </div>
         </Card>
       </div>
     </PageTemplate>
