@@ -33,6 +33,7 @@ const InputField = ({ channel }) => {
     onSubmit: async ({ body }) => {
       const { token, username } = loggedIn;
       try {
+        console.log(f);
         f.setSubmitting(false);
         const filteredText = leoProfanity.clean(body);
         const message = {
@@ -61,13 +62,14 @@ const InputField = ({ channel }) => {
     inputEl.current?.focus();
   }, [channel, f.isSubmitting]);
 
+  const isInvalid = !f.isValid || !f.dirty;
+
   return (
     <div className="mt-auto px-4 py-3">
       <Form noValidate className="py-1 border rounded-2" onSubmit={f.handleSubmit}>
-        <InputGroup hasValidation>
+        <InputGroup hasValidation={isInvalid}>
           <Form.Control
             ref={inputEl}
-            disabled={f.isSubmitting}
             name="body"
             placeholder={t('chat.addMessage')}
             className="border-0 p-0 ps-2"
@@ -79,12 +81,12 @@ const InputField = ({ channel }) => {
           />
           <Button
             type="submit"
-            disabled={f.isSubmitting}
+            disabled={isInvalid}
             variant=""
             className="btn-group-vertical"
           >
             <img src={sendIcon} style={{ height: 20 }} alt={t('chat.sendBtn')} />
-            <span className="visually-hidden">{t('chat.newMessage')}</span>
+            <span className="visually-hidden">{t('chat.sendBtn')}</span>
           </Button>
         </InputGroup>
       </Form>

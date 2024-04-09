@@ -20,9 +20,12 @@ const ErrorPage = () => {
           </Card.Body>
           <div className="card-footer p-4">
             <div className="text-center">
-              {t('errorPage.pageNotFound')}
-              {' '}
-              <Link to={routes.app.mainPage()}>{t('errorPage.mainPage')}</Link>
+              <h1 className="h4 text-muted">{t('errorPage.pageNotFound')}</h1>
+              <p className="text-muted">
+                {t('errorPage.navigateTo')}
+                {' '}
+                <Link to={routes.app.mainPage()}>{t('errorPage.mainPage')}</Link>
+              </p>
             </div>
           </div>
         </Card>
