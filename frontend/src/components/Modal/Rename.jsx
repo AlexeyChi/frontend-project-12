@@ -86,6 +86,7 @@ const Rename = ({ hideModal }) => {
               isInvalid={(f.errors.name && f.touched.name) || !!f.status}
               value={f.values.name}
             />
+            <Form.Label className="visually-hidden" htmlFor="name">{t('modals.channelName')}</Form.Label>
             <Form.Control.Feedback type="invalid">
               {t(f.errors.name) || f.status}
             </Form.Control.Feedback>
