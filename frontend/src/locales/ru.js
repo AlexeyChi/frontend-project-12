@@ -6,7 +6,7 @@ export default {
     },
     login: {
       header: 'Войти',
-      username: 'Имя пользователя',
+      username: 'Ваш ник',
       password: 'Пароль',
       loginBtn: 'Войти',
       newUser: 'Нет аккаунта?',
@@ -22,7 +22,7 @@ export default {
     },
     channels: {
       header: 'Каналы',
-      addBtn: 'Добавить',
+      addBtn: '+',
       delete: 'Удалить',
       rename: 'Переименовать',
       menu: 'Управление каналом',
@@ -35,10 +35,11 @@ export default {
       },
       addMessage: 'Введите сообщение...',
       sendBtn: 'Отправить',
-      newMessage: 'Отправить сообщение',
+      newMessage: 'Новое сообщение',
     },
     modals: {
       addChannelHeader: 'Добавить канал',
+      channelName: 'Имя канала',
       addChannel: 'Канал создан',
       removeChannel: 'Канал удален',
       enterChannelName: 'Введите название канала...',
@@ -64,7 +65,8 @@ export default {
     },
     errorPage: {
       pageNotFound: 'Страница не найдена',
-      mainPage: 'Перейти на главную?',
+      navigateTo: 'Но вы можете перейти',
+      mainPage: 'на главную страницу?',
     },
   },
 };

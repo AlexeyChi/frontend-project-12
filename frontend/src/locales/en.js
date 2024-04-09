@@ -22,7 +22,7 @@ export default {
     },
     channels: {
       header: 'Channels',
-      addBtn: 'Add',
+      addBtn: '+',
       delete: 'Delete',
       rename: 'Rename',
       menu: 'Channel menu',
@@ -38,6 +38,7 @@ export default {
     },
     modals: {
       addChannelHeader: 'Add channel',
+      channelName: 'Channel name',
       addChannel: 'Сhannel is created',
       removeChannel: 'Сhannel is deleted',
       enterChannelName: 'Enter channel name...',
@@ -63,7 +64,8 @@ export default {
     },
     errorPage: {
       pageNotFound: 'Page not found',
-      mainPage: 'main page?',
+      navigateTo: 'You can go to the',
+      mainPage: 'main page',
     },
   },
 };
