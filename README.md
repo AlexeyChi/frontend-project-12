@@ -1,7 +1,7 @@
 <h1 align="center">Slack Chat</h1>
 
 ### Hexlet tests and linter status:
-[![Actions Status](https://github.com/AlexeyChi/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/AlexeyChi/frontend-project-12/actions) [![Maintainability](https://api.codeclimate.com/v1/badges/f1e41f825fb549b4a6f2/maintainability)](https://codeclimate.com/github/AlexeyChi/frontend-project-12/maintainability)
+[![Actions Status](https://github.com/AlexeyChi/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/AlexeyChi/frontend-project-12/actions)
 
 ### Discription
 
