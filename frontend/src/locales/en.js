@@ -3,6 +3,8 @@ export default {
     navBar: {
       HexletChat: 'Hexlet Chat',
       logoutBtn: 'Log out',
+      ru: 'RU',
+      en: 'EN',
     },
     login: {
       header: 'Log in',
