@@ -59,7 +59,7 @@ export default {
       mustMatch: 'Password must match',
       userAlreadyExist: 'User already taken',
       authFailed: 'Username or password is incorrect',
-      network: 'Network error', 
+      network: 'Network error',
       unknown: 'Unknown error',
     },
     errorPage: {
