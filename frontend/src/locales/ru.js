@@ -41,7 +41,7 @@ export default {
       addChannelHeader: 'Добавить канал',
       channelName: 'Имя канала',
       addChannel: 'Канал создан',
-      removeChannel: 'Канал удален',
+      removeChannel: 'Канал удалён',
       enterChannelName: 'Введите название канала...',
       removeChannelHeader: 'Удалить канал',
       areYouShure: 'Уверены?',
