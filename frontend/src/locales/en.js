@@ -32,7 +32,7 @@ export default {
     chat: {
       messages: {
         message_one: '{{count}} message',
-        message_many: '{{count}} messages',
+        message_other: '{{count}} messages',
       },
       addMessage: 'Enter new message...',
       sendBtn: 'Send',
