@@ -1,14 +1,19 @@
-import { useState } from 'react';
+// import { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Dropdown } from 'react-bootstrap';
 
+import { actions as uiActions } from '../../../slices/ui';
+
 const ChangeLngButton = () => {
-  const [lenguage, setLenguage] = useState('ru');
+  const dispatch = useDispatch();
+  const { defaultLng, choosenLng } = useSelector((state) => state.ui.uiLenguage);
   const { t, i18n } = useTranslation();
+  const lenguage = choosenLng || defaultLng;
 
   const handleSwitchLng = (e) => {
     const lng = e.target.ariaLabel;
-    setLenguage(lng);
+    dispatch(uiActions.setLenguage(lng));
     i18n.changeLanguage(lng);
   };
 

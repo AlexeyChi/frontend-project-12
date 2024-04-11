@@ -12,6 +12,10 @@ const uiSlice = createSlice({
     },
     defaultChannelId: '1',
     activeChannelId: '1',
+    uiLenguage: {
+      defaultLng: 'ru',
+      choosenLng: localStorage.getItem('userLng') || '',
+    },
   },
   reducers: {
     setCurrentChannel: (state, { payload }) => ({ ...state, activeChannelId: payload }),
@@ -34,6 +38,10 @@ const uiSlice = createSlice({
         selectId: null,
       },
     }),
+    setLenguage: (state, { payload }) => {
+      localStorage.setItem('userLng', payload);
+      return { ...state, uiLenguage: { choosenLng: payload } };
+    },
   },
   extraReducers: (build) => {
     build.addCase(channelsActions.removeChannel, (state) => ({
