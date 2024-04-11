@@ -14,12 +14,13 @@ import badWordsRu from './locales/badWordsRu.js';
 
 const init = async () => {
   const i18n = i18next.createInstance();
+  const lng = localStorage.getItem('userLng') || 'ru';
 
   await i18n
     .use(initReactI18next)
     .init({
       resources,
-      fallbackLng: 'ru',
+      fallbackLng: lng,
     });
 
   const wordsFilterRu = leoProfanity.getDictionary('ru');
