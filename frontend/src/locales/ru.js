@@ -64,6 +64,7 @@ export default {
       authFailed: 'Неверные имя пользователя или пароль',
       network: 'Ошибка соединения',
       unknown: 'Неизвестная ошибка',
+      auth: 'Ошибка авторизации',
     },
     errorPage: {
       pageNotFound: 'Страница не найдена',

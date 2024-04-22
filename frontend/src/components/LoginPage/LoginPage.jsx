@@ -15,7 +15,7 @@ import {
 import { useAuth } from '../../hooks/index.jsx';
 import PageTemplate from '../PageTemplate/PageTemplate.jsx';
 import routes from '../../routes/index.js';
-import img from '../../assets/Todo_login.jpg';
+import img from '../../assets/login_logo.jpg';
 
 const LoginPage = () => {
   const [authFailed, setAuthFailed] = useState(false);
@@ -65,7 +65,7 @@ const LoginPage = () => {
         <Card className="shadow-sm">
           <Card.Body className="row p-5">
             <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-              <img src={img} className="max-w-250 rounded-circle" alt={t('login.header')} />
+              <img src={img} className="max-w-250" alt={t('login.header')} />
             </div>
             <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={f.handleSubmit}>
               <h1 className="text-center mb-4">{t('login.header')}</h1>

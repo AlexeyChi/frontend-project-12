@@ -33,7 +33,6 @@ const InputField = ({ channel }) => {
     onSubmit: async ({ body }) => {
       const { token, username } = loggedIn;
       try {
-        console.log(f);
         f.setSubmitting(false);
         const filteredText = leoProfanity.clean(body);
         const message = {

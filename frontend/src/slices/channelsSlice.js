@@ -4,12 +4,12 @@ import routes from '../routes';
 
 export const fetchChannels = createAsyncThunk(
   'channels/fetchChannels',
-  async (headers) => {
+  async (headers, { rejectWithValue }) => {
     try {
       const response = await axios.get(routes.api.channelsPath(), { headers });
       return response.data;
     } catch (err) {
-      throw new Error(`Error: ${err}`);
+      return rejectWithValue({ message: err.message, status: err.status });
     }
   },
 );

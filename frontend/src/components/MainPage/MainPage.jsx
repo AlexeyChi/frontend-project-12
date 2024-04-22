@@ -1,5 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { useRollbar } from '@rollbar/react';
+import { toast } from 'react-toastify';
 
 import { useAuth } from '../../hooks/index.jsx';
 import { fetchChannels } from '../../slices/channelsSlice.js';
@@ -11,12 +14,19 @@ import ChatContainer from './components/ChatBox/ChatContainer.jsx';
 const MainPage = () => {
   const dispatch = useDispatch();
   const auth = useAuth();
+  const { t } = useTranslation();
+  const rollbar = useRollbar();
 
   useEffect(() => {
-    const headers = auth.getAuthHeaders();
-    dispatch(fetchChannels(headers));
-    dispatch(fetchMessages(headers));
-  }, [dispatch, auth]);
+    try {
+      const headers = auth.getAuthHeaders();
+      dispatch(fetchChannels(headers));
+      dispatch(fetchMessages(headers));
+    } catch (err) {
+      rollbar.error('somthing is wrong', err);
+      toast.error(t('errors.auth'));
+    }
+  }, [dispatch, auth, t, rollbar]);
 
   return (
     <div className="container h-100 my-4 overflow-hidden rounded shadow">

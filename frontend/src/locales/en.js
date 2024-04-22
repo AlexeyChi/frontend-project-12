@@ -63,6 +63,7 @@ export default {
       authFailed: 'Username or password is incorrect',
       network: 'Network error',
       unknown: 'Unknown error',
+      auth: 'Authentication error',
     },
     errorPage: {
       pageNotFound: 'Page not found',

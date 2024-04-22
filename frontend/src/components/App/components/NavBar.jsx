@@ -10,7 +10,7 @@ const NavBar = () => {
   const { t } = useTranslation();
 
   return (
-    <Navbar bg="white" expand="lg" className="shadow-sm">
+    <Navbar bg="light" expand="lg" className="shadow-sm">
       <Container>
         <Navbar.Brand as={Link} to={routes.app.mainPage()}>{t('navBar.HexletChat')}</Navbar.Brand>
         <div className="d-flex">
